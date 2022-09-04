@@ -114,3 +114,45 @@ data "google_iam_policy" "noauth" {
     ]
   }
 }
+
+resource "google_sql_database" "database" {
+  name     = "flask-template"
+  project  = var.project_id
+  instance = google_sql_database_instance.instance.name
+}
+
+# See versions at https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#database_version
+resource "google_sql_database_instance" "instance" {
+  name             = "flask-template-instance"
+  project          = var.project_id
+  region           = "us-central1"
+  database_version = "MYSQL_8_0"
+
+  settings {
+    tier = "db-f1-micro"
+    ip_configuration {
+      # Add optional authorized networks
+      # Update to match the customer's networks
+      authorized_networks {
+        name  = "flask-template-net"
+        value = "0.0.0.0/0"
+      }
+      # Enable public IP
+      ipv4_enabled = true
+    }
+  }
+
+  deletion_protection  = "true"
+}
+
+resource "random_password" "pwd" {
+    length = 16
+    special = false
+}
+
+resource "google_sql_user" "user" { # Configure default db user
+    name      = "developer"
+    project   = var.project_id
+    instance  = google_sql_database_instance.instance.name
+    password  = random_password.pwd.result
+}
