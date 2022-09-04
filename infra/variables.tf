@@ -31,5 +31,5 @@ variable "docker_repo" {
 variable "docker_image" {
   description = "The name of the Docker image in the Artifact Registry repository to be deployed to Cloud Run"
   type        = string
-  default     = "flask-template"
+  default     = "flask-template:latest"
 }
