@@ -1,4 +1,3 @@
-
 # Application Setup
 - `poetry init`
 - `poetry add <dependency>`
@@ -13,6 +12,10 @@
 - `docker run -d -p 5000:5000 <image-name>`
 	- ie: `docker run -d -p 5000:5000 flask-template`
 
+# Secrets Management
+- Git Crypt
+	- encrypt secrets using Git Crypt: https://github.com/AGWA/git-crypt
+	- `git-crypt status` indicates which files are encrypted
 
 ## Resources
 - https://www.fpgmaas.com/blog/deploying-a-flask-api-to-cloudrun

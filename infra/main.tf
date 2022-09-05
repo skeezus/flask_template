@@ -7,6 +7,14 @@ terraform {
   }
 }
 
+locals {
+  db_name  = local.database.environment[var.environment].db_name
+  db_user  = local.database.environment[var.environment].db_user
+  db_pass  = local.database.environment[var.environment].db_pass
+  db_ip    = local.database.environment[var.environment].db_ip
+  db_port  = local.database.environment[var.environment].db_port
+}
+
 provider "google-beta" {
   project = var.project_id
   region  = var.region
@@ -78,6 +86,10 @@ resource "google_cloud_run_service" "default" { # https://registry.terraform.io/
           "memory" = "1G"
           "cpu" = "1"
           }
+        }
+        env {
+          name = "FLAKE_TEMPLATE_DB_URI"
+          value = "mysql+pymysql://${local.db_user}:${local.db_pass}@${local.db_ip}:${local.db_port}/${local.db_name}"
         }
       }
     }
