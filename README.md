@@ -10,7 +10,7 @@
 - `docker push <host-name>/<project-id>/<repo-name>/<image-name>:<image-tag>`
 	- ie: `docker push us-central1-docker.pkg.dev/flask-template-15608/flask-template/flask-template`
 - `docker run -d -p 5000:5000 <image-name>`
-	- ie: `docker run -d -p 5000:5000 flask-template`
+	- ie: `docker run -d -p 5000:5000 flask-template -e FLASK_TEMPLATE_DB_URI=${FLASK_TEMPLATE_DB_URI}`
 
 # Secrets Management
 - Git Crypt

@@ -4,7 +4,9 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("FLAKE_TEMPLATE_DB_URI")
+print("FLASK_TEMPLATE_DB_URI")
+print(os.getenv("FLASK_TEMPLATE_DB_URI"))
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("FLASK_TEMPLATE_DB_URI")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)

@@ -88,7 +88,7 @@ resource "google_cloud_run_service" "default" { # https://registry.terraform.io/
           }
         }
         env {
-          name = "FLAKE_TEMPLATE_DB_URI"
+          name = "FLASK_TEMPLATE_DB_URI"
           value = "mysql+pymysql://${local.db_user}:${local.db_pass}@${local.db_ip}:${local.db_port}/${local.db_name}"
         }
       }

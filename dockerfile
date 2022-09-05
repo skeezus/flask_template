@@ -5,7 +5,6 @@ ENV \
   POETRY_VIRTUALENVS_CREATE=false \
   PORT=5000
 
-
 RUN pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /app
