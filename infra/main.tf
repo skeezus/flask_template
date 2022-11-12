@@ -5,6 +5,10 @@ terraform {
       version = "4.25.0"
     }
   }
+  backend "gcs" {
+   bucket  = "2cd625ae8ac88aaa-bucket-tfstate"
+   prefix  = "terraform/state"
+ }
 }
 
 locals {
