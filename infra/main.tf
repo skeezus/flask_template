@@ -51,6 +51,12 @@ resource "google_project_service" "resourcemanager" { # Enable Cloud Resource Ma
   disable_on_destroy = false
 }
 
+resource "google_project_service" "google_storage_bucket" { # Enable Storage Bucket
+  provider = google-beta
+  service            = "storage.googleapis.com"
+  disable_on_destroy = false
+}
+
 resource "time_sleep" "wait_30_seconds" { # This is used so there is some time for the activation of the API's to propagate through Google Cloud before actually calling them.
   create_duration = "30s"
   
@@ -167,4 +173,19 @@ resource "google_sql_user" "user" { # Configure default db user
     project   = var.project_id
     instance  = google_sql_database_instance.instance.name
     password  = random_password.pwd.result
+}
+
+resource "random_id" "bucket_prefix" {
+  byte_length = 8
+}
+
+resource "google_storage_bucket" "default" {
+  name          = "${random_id.bucket_prefix.hex}-bucket-tfstate"
+  project       = var.project_id
+  force_destroy = false
+  location      = "US"
+  storage_class = "STANDARD"
+  versioning {
+    enabled = true
+  }
 }
